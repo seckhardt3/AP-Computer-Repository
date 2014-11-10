@@ -1,0 +1,22 @@
+{
+    "contents" : "",
+    "created" : 1415654968312.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "CC21BA1D",
+    "lastKnownWriteTime" : 3756080516593168236,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "caption" : "BlackPercentage",
+        "contentUrl" : "content?title=BlackPercentage&file=1cc21386d554402fa985abbd71393122.htm",
+        "displayedObservations" : 28,
+        "displayedVariables" : 7,
+        "totalObservations" : 28,
+        "variables" : 7
+    },
+    "source_on_save" : false,
+    "type" : "r_dataframe"
+}

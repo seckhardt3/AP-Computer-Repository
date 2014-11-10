@@ -1,0 +1,17 @@
+{
+    "contents" : "---\ntitle: \"AP Computer Manipulation\"\nauthor: \"Sam Eckhardt\"\ndate: \"Monday, November 10, 2014\"\noutput: html_document\n---\n\n#Summary\n\nThis data is from the College Board, and was collected by Barbara Ericson. The data contains information on the pass rates for the AP Computer Science test, which happens every May. The data also includes pass rates by race, including Hispanic and Black, as well as the overall pass rate. The data is split into three sheets; One includes state data on a year by year basis, and the other two is more specific data for the years of 2013 and 2012. Our Goal is to summarise some of this data, provide some insightful comparisons, and find out what this data really shows about pass rates. \n\n## GoogleVis\n\nWe will be using googleVis for all of our graphs. GoogleVis is a package within R that allows for the easy creation of graphs that you can select and deselect certain parts and factors in it, as well as other visualizations. You will be able to see for yourself what googleVis is capable of as you go through our presentation. \nAs well, we will be using ggplot2 for our static graphs. \n\n```{r, echo=FALSE}\nlibrary(googleVis)\nlibrary(ggplot2)\nlibrary(gridExtra)\nlibrary(gtable)\nlibrary(ggmap)\nlibrary(reshape2)\nlibrary(scales)\nlibrary(dplyr)\n\n```\n\n```{r}\nBlackPercentage<-APcomputercleaned2013%>%\n  select(1,11:15)%>%\n  filter(percent.Black.passed!=\"0\",percent.Black.passed!=\"*\",Data2013!=\"\")\nBlackPercentage$Percent.Black.Passed <- as.numeric(as.character(BlackPercentage$percent.Black.passed))\n\nBlackGvis<-BlackPercentage%>%\n  select(1,4)\n\nHist <- gvisBarChart(BlackGvis, options=list(\n  legend=\"{ position: 'top', maxLines: 2 }\",\n  width=750, height=360))\nplot(Hist)\nprint(Hist,file=\"hist.html\")\n\n\nggplot(BlackPercentage, aes(x=reorder(Data2013,Percent.Black.Passed),y=Percent.Black.Passed,group=Data2013, fill=Data2013))+geom_bar(stat=\"identity\")+theme(legend.position=\"none\",axis.text.x = element_blank())+geom_text(aes(label=Data2013),size=4)\n```\n\n```{r}\nGirlPercentage<-APcomputercleaned2013%>%\n  select(1,7:10)%>%\n  filter(numfemale.passed!=\"*\",numfemale!=\"0\")\nGirlPercentage$Percentfemalepassed<-as.numeric(as.character(GirlPercentage$percentfemale.passed))\n\nggplot(GirlPercentage, aes(x=reorder(Data2013,Percentfemalepassed),y=Percentfemalepassed,group=Data2013, fill=Data2013))+geom_bar(stat=\"identity\")+theme(legend.position=\"none\",axis.text.x = element_blank())+geom_text(aes(label=Data2013),size=4)\n```\n",
+    "created" : 1415643917800.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2634308387",
+    "id" : "1B006C66",
+    "lastKnownWriteTime" : 1415656047,
+    "path" : "~/SCHOOL/Senior Fall/MKTG 489/AP-Computer-Repository/APComputerAssignment.Rmd",
+    "project_path" : "APComputerAssignment.Rmd",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "r_markdown"
+}

@@ -1,0 +1,55 @@
+---
+title: "AP Computer Manipulation"
+author: "Sam Eckhardt"
+date: "Monday, November 10, 2014"
+output: html_document
+---
+
+#Summary
+
+This data is from the College Board, and was collected by Barbara Ericson. The data contains information on the pass rates for the AP Computer Science test, which happens every May. The data also includes pass rates by race, including Hispanic and Black, as well as the overall pass rate. The data is split into three sheets; One includes state data on a year by year basis, and the other two is more specific data for the years of 2013 and 2012. Our Goal is to summarise some of this data, provide some insightful comparisons, and find out what this data really shows about pass rates. 
+
+## GoogleVis
+
+We will be using googleVis for all of our graphs. GoogleVis is a package within R that allows for the easy creation of graphs that you can select and deselect certain parts and factors in it, as well as other visualizations. You will be able to see for yourself what googleVis is capable of as you go through our presentation. 
+As well, we will be using ggplot2 for our static graphs. 
+
+```{r, echo=FALSE}
+library(googleVis)
+library(ggplot2)
+library(gridExtra)
+library(gtable)
+library(ggmap)
+library(reshape2)
+library(scales)
+library(dplyr)
+
+```
+
+```{r}
+BlackPercentage<-APcomputercleaned2013%>%
+  select(1,11:15)%>%
+  filter(percent.Black.passed!="0",percent.Black.passed!="*",Data2013!="")
+BlackPercentage$Percent.Black.Passed <- as.numeric(as.character(BlackPercentage$percent.Black.passed))
+
+BlackGvis<-BlackPercentage%>%
+  select(1,4)
+
+Hist <- gvisBarChart(BlackGvis, options=list(
+  legend="{ position: 'top', maxLines: 2 }",
+  width=750, height=360))
+plot(Hist)
+print(Hist,file="hist.html")
+
+
+ggplot(BlackPercentage, aes(x=reorder(Data2013,Percent.Black.Passed),y=Percent.Black.Passed,group=Data2013, fill=Data2013))+geom_bar(stat="identity")+theme(legend.position="none",axis.text.x = element_blank())+geom_text(aes(label=Data2013),size=4)
+```
+
+```{r}
+GirlPercentage<-APcomputercleaned2013%>%
+  select(1,7:10)%>%
+  filter(numfemale.passed!="*",numfemale!="0")
+GirlPercentage$Percentfemalepassed<-as.numeric(as.character(GirlPercentage$percentfemale.passed))
+
+ggplot(GirlPercentage, aes(x=reorder(Data2013,Percentfemalepassed),y=Percentfemalepassed,group=Data2013, fill=Data2013))+geom_bar(stat="identity")+theme(legend.position="none",axis.text.x = element_blank())+geom_text(aes(label=Data2013),size=4)
+```
