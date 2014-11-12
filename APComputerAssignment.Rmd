@@ -36,19 +36,34 @@ BlackPercentage<-APcomputercleaned2013%>%
 #Data Frame
 BlackPercentage$Percent.Black.Passed <- as.numeric(as.character(BlackPercentage$percent.Black.passed))
 #Factor to Numeric
+BlackPercentage$NumTaking <- as.numeric(as.character(BlackPercentage$numblack.taking.exam))
+```
 
-BlackPercentageBar<- ggplot(BlackPercentage, aes(x=reorder(Data2013,Percent.Black.Passed),y=Percent.Black.Passed,group=Data2013, fill=Data2013))+geom_bar(stat="identity")+theme(legend.position="none",axis.text.y = element_blank())+geom_text(aes(label=Data2013),size=4)+ coord_flip()
+```{r}
+ggplot(BlackPercentage, aes(x=reorder(Data2013,Percent.Black.Passed),y=Percent.Black.Passed,group=Data2013, fill=Data2013))+geom_bar(stat="identity")+theme(legend.position="none",axis.text.y = element_blank())+geom_text(aes(label=Data2013),size=4)+ coord_flip()
 #Bar Plot of Passing percentage, in descending order, by state
+BlackPercentageBar<- gvisBarChart(BlackPercentage[order(-BlackPercentage$Percent.Black.Passed),],xvar="Data2013",yvar="Percent.Black.Passed",options=list(width=800,height=800))
+plot(BlackPercentageBar)
 print(BlackPercentageBar,file="blackpercentagebar.html")
+```
 
+```{r}
 p1<-ggplot(BlackPercentage, aes(x=Percent.Black.Passed,y=numblack.taking.exam))+geom_point()+geom_smooth(color="black",method=lm)
 #scatterplot of Percentage Passed and Percentage taken in each state, with regression line
-print(p1,file="p1.html")
+p1set<-BlackPercentage%>%
+  select(8,9)
+p1gvis<-gvisScatterChart(p1set,options=list(width=800,height=800,pointSize=5))
+plot(p1gvis)
+print(p1gvis,file="p1gvis.html")
 
 
 p2<-ggplot(BlackPercentage, aes(x=Percent.Black.Passed,y=TeacherYield))+geom_point()+geom_smooth(color="black",method=lm)
 #scatterplot of Percentage Passed and Teacher Yield in each state, with regression line
-print(p2,file="p2.html")
+p2set<-BlackPercentage%>%
+  select(2,9)
+p2gvis<-gvisScatterChart(p2set,options=list(width=800,height=800,pointSize=5))
+plot(p2gvis)
+print(p2gvis,file="p2gvis.html")
 
 ```
 
@@ -60,8 +75,10 @@ GirlPercentage<-APcomputercleaned2013%>%
 GirlPercentage$Percentfemalepassed<-as.numeric(as.character(GirlPercentage$percentfemale.passed))
 #factor to numeric
 
-GirlPercentageBar<-ggplot(GirlPercentage, aes(x=reorder(Data2013,Percentfemalepassed),y=Percentfemalepassed,group=Data2013, fill=Data2013))+geom_bar(stat="identity")+theme(legend.position="none",axis.text.y = element_blank())+geom_text(aes(label=Data2013),size=4)+ coord_flip()
+ggplot(GirlPercentage, aes(x=reorder(Data2013,Percentfemalepassed),y=Percentfemalepassed,group=Data2013, fill=Data2013))+geom_bar(stat="identity")+theme(legend.position="none",axis.text.y = element_blank())+geom_text(aes(label=Data2013),size=4)+ coord_flip()
 #Bar Plot of Passing percentage, in descending order, by state
+GirlPercentageBar<- gvisBarChart(GirlPercentage[order(-GirlPercentage$Percentfemalepassed),],xvar="Data2013",yvar="Percentfemalepassed",options=list(width=800,height=800))
+plot(GirlPercentageBar)
 print(GirlPercentageBar,file="girlpercentagebar.html")
 
 
@@ -82,8 +99,10 @@ HispanicPercentage<-APcomputercleaned2013%>%
 HispanicPercentage$PercentHispanicpassed<-as.numeric(as.character(HispanicPercentage$percentHispanic.passed))
 #factor to numeric
   
-HispanicPercentageBar<-ggplot(HispanicPercentage, aes(x=reorder(Data2013,PercentHispanicpassed),y=PercentHispanicpassed,group=Data2013, fill=Data2013))+geom_bar(stat="identity")+theme(legend.position="none",axis.text.y = element_blank())+geom_text(aes(label=Data2013),size=4)+ coord_flip()
+ggplot(HispanicPercentage, aes(x=reorder(Data2013,PercentHispanicpassed),y=PercentHispanicpassed,group=Data2013, fill=Data2013))+geom_bar(stat="identity")+theme(legend.position="none",axis.text.y = element_blank())+geom_text(aes(label=Data2013),size=4)+ coord_flip()
 #Bar Plot of Passing percentage, in descending order, by state
+HispanicPercentageBar<-gvisBarChart(HispanicPercentage[order(-HispanicPercentage$PercentHispanicpassed),],xvar="Data2013",yvar="PercentHispanicpassed",options=list(width=800,height=800))
+plot(HispanicPercentageBar)
 print(HispanicPercentageBar,file="hispanicpercentagebar.html")
 
 
@@ -98,7 +117,7 @@ print(p6,file="p6.html")
 ```
 
 ```{r}
-Grid<-grid.arrange(p1,p2,p3,p4,p5,p6,ncol=2)
+grid.arrange(p1,p2,p3,p4,p5,p6,ncol=2)
 ```
 
 ```{r}
@@ -125,14 +144,14 @@ plot(GeoStatesHispanic)
 print(GeoStatesHispanic,file="GeoStatesHispanic.html")
 ```
 <iframe src="blackpercentagebar.html" width="800" height="600"></iframe>
-<iframe src="p1.html" width="800" height="600"></iframe>
-<iframe src="p2.html" width="800" height="600"></iframe>
+<iframe src="p1gvis.html" width="800" height="600"></iframe>
+<iframe src="p2gvis.html" width="800" height="600"></iframe>
 <iframe src="girlpercentagebar.html" width="800" height="600"></iframe>
-<iframe src="p3.html" width="800" height="600"></iframe>
-<iframe src="p4.html" width="800" height="600"></iframe>
+<iframe src="p3gvis.html" width="800" height="600"></iframe>
+<iframe src="p4gvis.html" width="800" height="600"></iframe>
 <iframe src="hispanicpercentagebar.html" width="800" height="600"></iframe>
-<iframe src="p5.html" width="800" height="600"></iframe>
-<iframe src="p6.html" width="800" height="600"></iframe>
+<iframe src="p5gvis.html" width="800" height="600"></iframe>
+<iframe src="p6gvis.html" width="800" height="600"></iframe>
 <iframe src="PassingGrid.png" width="800" height="600"></iframe>
 <iframe src="GeoStatesBlack.html" width="800" height="600"></iframe>
 <iframe src="GeoStatesGirl.html" width="800" height="600"></iframe>

@@ -1,0 +1,226 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ScatterChartIDc182b5213f2</title>
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<style type="text/css">
+body {
+  color: #444444;
+  font-family: Arial,Helvetica,sans-serif;
+  font-size: 75%;
+  }
+  a {
+  color: #4D87C7;
+  text-decoration: none;
+}
+</style>
+</head>
+<body>
+ <!-- ScatterChart generated in R 3.1.1 by googleVis 0.5.6 package -->
+<!-- Wed Nov 12 12:13:02 2014 -->
+
+
+<!-- jsHeader -->
+<script type="text/javascript">
+ 
+// jsData 
+function gvisDataScatterChartIDc182b5213f2 () {
+var data = new google.visualization.DataTable();
+var datajson =
+[
+ [
+ 23.52606635,
+1.49073328 
+],
+[
+ 14.68265683,
+3.317416436 
+],
+[
+ 14.98387097,
+3.6598493 
+],
+[
+ 15.04545455,
+4.712990937 
+],
+[
+ 14.54464286,
+10.43585021 
+],
+[
+ 11.38129496,
+2.149178255 
+],
+[
+ 16.76344086,
+1.603592046 
+],
+[
+ 14.76699029,
+5.456936226 
+],
+[
+ 15.19277108,
+10.22997621 
+],
+[
+ 11.72527473,
+3.186504217 
+],
+[
+ 7.007936508,
+2.378255946 
+],
+[
+ 17.34146341,
+1.687763713 
+],
+[
+ 11.42622951,
+2.295552367 
+],
+[
+ 12.02083333,
+1.559792028 
+],
+[
+ 6.482352941,
+5.081669691 
+],
+[
+ 9.583333333,
+2.391304348 
+],
+[
+ 12.21875,
+2.557544757 
+],
+[
+ 11.78125,
+1.326259947 
+],
+[
+ 10.27777778,
+2.972972973 
+],
+[
+ 11.5862069,
+2.380952381 
+],
+[
+ 7.357142857,
+1.618122977 
+],
+[
+ 17.1875,
+6.909090909 
+],
+[
+ 13.94444444,
+9.960159363 
+],
+[
+ 9.047619048,
+11.57894737 
+],
+[
+ 8.7,
+5.172413793 
+],
+[
+ 15.72727273,
+4.046242775 
+],
+[
+ 6.653846154,
+6.936416185 
+],
+[
+ 6.3,
+6.349206349 
+] 
+];
+data.addColumn('number','TeacherYield');
+data.addColumn('number','NumTaking');
+data.addRows(datajson);
+return(data);
+}
+ 
+// jsDrawChart
+function drawChartScatterChartIDc182b5213f2() {
+var data = gvisDataScatterChartIDc182b5213f2();
+var options = {};
+options["allowHtml"] = true;
+options["width"] =    800;
+options["height"] =    800;
+options["pointSize"] =      5;
+
+
+    var chart = new google.visualization.ScatterChart(
+    document.getElementById('ScatterChartIDc182b5213f2')
+    );
+    chart.draw(data,options);
+    
+
+}
+  
+ 
+// jsDisplayChart
+(function() {
+var pkgs = window.__gvisPackages = window.__gvisPackages || [];
+var callbacks = window.__gvisCallbacks = window.__gvisCallbacks || [];
+var chartid = "corechart";
+  
+// Manually see if chartid is in pkgs (not all browsers support Array.indexOf)
+var i, newPackage = true;
+for (i = 0; newPackage && i < pkgs.length; i++) {
+if (pkgs[i] === chartid)
+newPackage = false;
+}
+if (newPackage)
+  pkgs.push(chartid);
+  
+// Add the drawChart function to the global list of callbacks
+callbacks.push(drawChartScatterChartIDc182b5213f2);
+})();
+function displayChartScatterChartIDc182b5213f2() {
+  var pkgs = window.__gvisPackages = window.__gvisPackages || [];
+  var callbacks = window.__gvisCallbacks = window.__gvisCallbacks || [];
+  window.clearTimeout(window.__gvisLoad);
+  // The timeout is set to 100 because otherwise the container div we are
+  // targeting might not be part of the document yet
+  window.__gvisLoad = setTimeout(function() {
+  var pkgCount = pkgs.length;
+  google.load("visualization", "1", { packages:pkgs, callback: function() {
+  if (pkgCount != pkgs.length) {
+  // Race condition where another setTimeout call snuck in after us; if
+  // that call added a package, we must not shift its callback
+  return;
+}
+while (callbacks.length > 0)
+callbacks.shift()();
+} });
+}, 100);
+}
+ 
+// jsFooter
+</script>
+ 
+<!-- jsChart -->  
+<script type="text/javascript" src="https://www.google.com/jsapi?callback=displayChartScatterChartIDc182b5213f2"></script>
+ 
+<!-- divChart -->
+  
+<div id="ScatterChartIDc182b5213f2" 
+  style="width: 800; height: 800;">
+</div>
+ <div><span>Data: p2set &#8226; Chart ID: <a href="Chart_ScatterChartIDc182b5213f2.html">ScatterChartIDc182b5213f2</a> &#8226; <a href="https://github.com/mages/googleVis">googleVis-0.5.6</a></span><br /> 
+<!-- htmlFooter -->
+<span> 
+  R version 3.1.1 (2014-07-10) 
+  &#8226; <a href="https://developers.google.com/terms/">Google Terms of Use</a> &#8226; <a href="https://google-developers.appspot.com/chart/interactive/docs/gallery/scatterchart">Documentation and Data Policy</a>
+</span></div>
+</body>
+</html>

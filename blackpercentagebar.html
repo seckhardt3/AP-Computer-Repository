@@ -1,0 +1,225 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>BarChartID18d8394531df</title>
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<style type="text/css">
+body {
+  color: #444444;
+  font-family: Arial,Helvetica,sans-serif;
+  font-size: 75%;
+  }
+  a {
+  color: #4D87C7;
+  text-decoration: none;
+}
+</style>
+</head>
+<body>
+ <!-- BarChart generated in R 3.1.1 by googleVis 0.5.6 package -->
+<!-- Tue Nov 11 18:11:32 2014 -->
+
+
+<!-- jsHeader -->
+<script type="text/javascript">
+ 
+// jsData 
+function gvisDataBarChartID18d8394531df () {
+var data = new google.visualization.DataTable();
+var datajson =
+[
+ [
+ "Alabama",
+75 
+],
+[
+ "Pennsylvania",
+66.66666667 
+],
+[
+ "Michigan",
+66.66666667 
+],
+[
+ "Ohio",
+62.5 
+],
+[
+ "California",
+56.75675676 
+],
+[
+ "Connecticut",
+54.54545455 
+],
+[
+ "Kentucky",
+50 
+],
+[
+ "Missouri",
+50 
+],
+[
+ "Texas",
+48.48484848 
+],
+[
+ "New Jersey",
+47.05882353 
+],
+[
+ "Colorado",
+45.45454545 
+],
+[
+ "Oklahoma",
+44.44444444 
+],
+[
+ "Arkansas",
+42.85714286 
+],
+[
+ "Illinois",
+40 
+],
+[
+ "Minnesota",
+40 
+],
+[
+ "Mass",
+38.23529412 
+],
+[
+ "South Carolina",
+36.84210526 
+],
+[
+ "New York",
+33.82352941 
+],
+[
+ "Washington",
+33.33333333 
+],
+[
+ "Tenn",
+32 
+],
+[
+ "Indiana",
+30 
+],
+[
+ "Virginia",
+28.20512821 
+],
+[
+ "Arizona",
+27.27272727 
+],
+[
+ "Maryland",
+27.05882353 
+],
+[
+ "Georgia",
+21.70542636 
+],
+[
+ "North Carolina",
+21.42857143 
+],
+[
+ "Wisconsin",
+20 
+],
+[
+ "Florida",
+19.27710843 
+] 
+];
+data.addColumn('string','Data2013');
+data.addColumn('number','Percent.Black.Passed');
+data.addRows(datajson);
+return(data);
+}
+ 
+// jsDrawChart
+function drawChartBarChartID18d8394531df() {
+var data = gvisDataBarChartID18d8394531df();
+var options = {};
+options["allowHtml"] = true;
+options["width"] =    800;
+options["height"] =    800;
+
+
+    var chart = new google.visualization.BarChart(
+    document.getElementById('BarChartID18d8394531df')
+    );
+    chart.draw(data,options);
+    
+
+}
+  
+ 
+// jsDisplayChart
+(function() {
+var pkgs = window.__gvisPackages = window.__gvisPackages || [];
+var callbacks = window.__gvisCallbacks = window.__gvisCallbacks || [];
+var chartid = "corechart";
+  
+// Manually see if chartid is in pkgs (not all browsers support Array.indexOf)
+var i, newPackage = true;
+for (i = 0; newPackage && i < pkgs.length; i++) {
+if (pkgs[i] === chartid)
+newPackage = false;
+}
+if (newPackage)
+  pkgs.push(chartid);
+  
+// Add the drawChart function to the global list of callbacks
+callbacks.push(drawChartBarChartID18d8394531df);
+})();
+function displayChartBarChartID18d8394531df() {
+  var pkgs = window.__gvisPackages = window.__gvisPackages || [];
+  var callbacks = window.__gvisCallbacks = window.__gvisCallbacks || [];
+  window.clearTimeout(window.__gvisLoad);
+  // The timeout is set to 100 because otherwise the container div we are
+  // targeting might not be part of the document yet
+  window.__gvisLoad = setTimeout(function() {
+  var pkgCount = pkgs.length;
+  google.load("visualization", "1", { packages:pkgs, callback: function() {
+  if (pkgCount != pkgs.length) {
+  // Race condition where another setTimeout call snuck in after us; if
+  // that call added a package, we must not shift its callback
+  return;
+}
+while (callbacks.length > 0)
+callbacks.shift()();
+} });
+}, 100);
+}
+ 
+// jsFooter
+</script>
+ 
+<!-- jsChart -->  
+<script type="text/javascript" src="https://www.google.com/jsapi?callback=displayChartBarChartID18d8394531df"></script>
+ 
+<!-- divChart -->
+  
+<div id="BarChartID18d8394531df" 
+  style="width: 800; height: 800;">
+</div>
+ <div><span>Data: data &#8226; Chart ID: <a href="Chart_BarChartID18d8394531df.html">BarChartID18d8394531df</a> &#8226; <a href="https://github.com/mages/googleVis">googleVis-0.5.6</a></span><br /> 
+<!-- htmlFooter -->
+<span> 
+  R version 3.1.1 (2014-07-10) 
+  &#8226; <a href="https://developers.google.com/terms/">Google Terms of Use</a> &#8226; <a href="https://google-developers.appspot.com/chart/interactive/docs/gallery/barchart">Documentation and Data Policy</a>
+</span></div>
+</body>
+</html>
