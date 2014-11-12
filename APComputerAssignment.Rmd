@@ -60,7 +60,7 @@ print(p1gvis,file="p1gvis.html")
 p2<-ggplot(BlackPercentage, aes(x=Percent.Black.Passed,y=TeacherYield))+geom_point()+geom_smooth(color="black",method=lm)
 #scatterplot of Percentage Passed and Teacher Yield in each state, with regression line
 p2set<-BlackPercentage%>%
-  select(2,9)
+  select(8,2)
 p2gvis<-gvisScatterChart(p2set,options=list(width=800,height=800,pointSize=5))
 plot(p2gvis)
 print(p2gvis,file="p2gvis.html")
@@ -74,21 +74,35 @@ GirlPercentage<-APcomputercleaned2013%>%
 #Data Frame
 GirlPercentage$Percentfemalepassed<-as.numeric(as.character(GirlPercentage$percentfemale.passed))
 #factor to numeric
+GirlPercentage$PercentFemaleTaking<-as.numeric(as.character(GirlPercentage$percentfemale))
+```
 
+```{r}
 ggplot(GirlPercentage, aes(x=reorder(Data2013,Percentfemalepassed),y=Percentfemalepassed,group=Data2013, fill=Data2013))+geom_bar(stat="identity")+theme(legend.position="none",axis.text.y = element_blank())+geom_text(aes(label=Data2013),size=4)+ coord_flip()
 #Bar Plot of Passing percentage, in descending order, by state
 GirlPercentageBar<- gvisBarChart(GirlPercentage[order(-GirlPercentage$Percentfemalepassed),],xvar="Data2013",yvar="Percentfemalepassed",options=list(width=800,height=800))
 plot(GirlPercentageBar)
 print(GirlPercentageBar,file="girlpercentagebar.html")
+```
 
+```{r}
 
 p3<-ggplot(GirlPercentage, aes(x=Percentfemalepassed,y=percentfemale))+geom_point()+geom_smooth(color="black",method=lm)
 #scatterplot of Percentage Passed and Percentage taken in each state, with regression line
-print(p3,file="p3.html")
+p3set<-GirlPercentage%>%
+  select(7,9)
+p3gvis<-gvisScatterChart(p3set,options=list(width=800,height=800,pointSize=5))
+plot(p3gvis)
+print(p3gvis,file="p3gvis.html")
+
 
 p4<-ggplot(GirlPercentage, aes(x=Percentfemalepassed,y=TeacherYield))+geom_point()+geom_smooth(color="black",method=lm)
 #scatterplot of Percentage Passed and Teacher Yield in each state, with regression line
-print(p4,file="p4.html")
+p4set<-GirlPercentage%>%
+  select(7,2)
+p4gvis<-gvisScatterChart(p4set,options=list(width=800,height=800,pointSize=5))
+plot(p4gvis)
+print(p4gvis,file="p4gvis.html")
 ```
 
 ```{r}
@@ -98,22 +112,36 @@ HispanicPercentage<-APcomputercleaned2013%>%
 #Data Frame
 HispanicPercentage$PercentHispanicpassed<-as.numeric(as.character(HispanicPercentage$percentHispanic.passed))
 #factor to numeric
+HispanicPercentage$PercentHispanicTaken<-as.numeric(as.character(HispanicPercentage$percent.hispanic.taking.exam))
+```
+
+```{r}
   
 ggplot(HispanicPercentage, aes(x=reorder(Data2013,PercentHispanicpassed),y=PercentHispanicpassed,group=Data2013, fill=Data2013))+geom_bar(stat="identity")+theme(legend.position="none",axis.text.y = element_blank())+geom_text(aes(label=Data2013),size=4)+ coord_flip()
 #Bar Plot of Passing percentage, in descending order, by state
 HispanicPercentageBar<-gvisBarChart(HispanicPercentage[order(-HispanicPercentage$PercentHispanicpassed),],xvar="Data2013",yvar="PercentHispanicpassed",options=list(width=800,height=800))
 plot(HispanicPercentageBar)
 print(HispanicPercentageBar,file="hispanicpercentagebar.html")
+```
 
+```{r}
 
 p5<-ggplot(HispanicPercentage, aes(x=PercentHispanicpassed,y=percent.hispanic.taking.exam))+geom_point()+geom_smooth(color="black",method=lm)
 #scatterplot of Percentage Passed and Percentage taken in each state, with regression line
-print(p5,file="p5.html")
+p5set<-HispanicPercentage%>%
+  select(7,8)
+p5gvis<-gvisScatterChart(p5set,options=list(width=800,height=800,pointSize=5))
+plot(p5gvis)
+print(p5gvis,file="p5gvis.html")
 
 
 p6<-ggplot(HispanicPercentage, aes(x=PercentHispanicpassed,y=TeacherYield))+geom_point()+geom_smooth(color="black",method=lm)
 #scatterplot of Percentage Passed and Teacher Yield in each state, with regression line
-print(p6,file="p6.html")
+p6set<-HispanicPercentage%>%
+  select(7,2)
+p6gvis<-gvisScatterChart(p6set,options=list(width=800,height=800,pointSize=5))
+plot(p6gvis)
+print(p6gvis,file="p6gvis.html")
 ```
 
 ```{r}
