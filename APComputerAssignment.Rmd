@@ -24,7 +24,8 @@ library(reshape2)
 library(scales)
 library(dplyr)
 setwd("~/SCHOOL/Senior Fall/MKTG 489/AP-Computer-Repository")
-load(file="APcomputercleaned2013.csv")
+read.csv("APcomputercleaned2013.csv")
+
 ```
 
 ```{r}
