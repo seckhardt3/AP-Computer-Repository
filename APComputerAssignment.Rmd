@@ -11,7 +11,7 @@ This data is from the College Board, and was collected by Barbara Ericson. The d
 
 ## GoogleVis
 
-We will be using googleVis for all of our graphs. GoogleVis is a package within R that allows for the easy creation of graphs that you can select and deselect certain parts and factors in it, as well as other visualizations. You will be able to see for yourself what googleVis is capable of as you go through our presentation. 
+We will be using googleVis for some of our graphs. GoogleVis is a package within R that allows for the easy creation of graphs that you can select and deselect certain parts and factors in it, as well as other visualizations. You will be able to see for yourself what googleVis is capable of as you go through our presentation. 
 As well, we will be using ggplot2 for our static graphs. 
 
 ```{r, echo=FALSE}
@@ -23,7 +23,8 @@ library(ggmap)
 library(reshape2)
 library(scales)
 library(dplyr)
-
+setwd("~/SCHOOL/Senior Fall/MKTG 489/AP-Computer-Repository")
+load(file="APcomputercleaned2013.csv")
 ```
 
 ```{r}
@@ -32,7 +33,7 @@ APcomputercleaned2013$TeacherYield<-as.numeric(as.character(APcomputercleaned201
 
 BlackPercentage<-APcomputercleaned2013%>%
   select(1,29,11:15)%>%
-  filter(percent.Black.passed!="0",percent.Black.passed!="*",Data2013!="")
+  filter(percent.Black.passed!="0",percent.Black.passed!="*",State!="")
 #Data Frame
 BlackPercentage$Percent.Black.Passed <- as.numeric(as.character(BlackPercentage$percent.Black.passed))
 #Factor to Numeric
@@ -40,9 +41,9 @@ BlackPercentage$NumTaking <- as.numeric(as.character(BlackPercentage$numblack.ta
 ```
 
 ```{r}
-ggplot(BlackPercentage, aes(x=reorder(Data2013,Percent.Black.Passed),y=Percent.Black.Passed,group=Data2013, fill=Data2013))+geom_bar(stat="identity")+theme(legend.position="none",axis.text.y = element_blank())+geom_text(aes(label=Data2013),size=4)+ coord_flip()
+ggplot(BlackPercentage, aes(x=reorder(State,Percent.Black.Passed),y=Percent.Black.Passed,group=State, fill=State))+geom_bar(stat="identity")+theme(legend.position="none",axis.text.y = element_blank())+geom_text(aes(label=State),size=4)+ coord_flip()
 #Bar Plot of Passing percentage, in descending order, by state
-BlackPercentageBar<- gvisBarChart(BlackPercentage[order(-BlackPercentage$Percent.Black.Passed),],xvar="Data2013",yvar="Percent.Black.Passed",options=list(width=800,height=800))
+BlackPercentageBar<- gvisBarChart(BlackPercentage[order(-BlackPercentage$Percent.Black.Passed),],xvar="State",yvar="Percent.Black.Passed",options=list(width=800,height=800))
 plot(BlackPercentageBar)
 print(BlackPercentageBar,file="blackpercentagebar.html")
 ```
@@ -78,9 +79,9 @@ GirlPercentage$PercentFemaleTaking<-as.numeric(as.character(GirlPercentage$perce
 ```
 
 ```{r}
-ggplot(GirlPercentage, aes(x=reorder(Data2013,Percentfemalepassed),y=Percentfemalepassed,group=Data2013, fill=Data2013))+geom_bar(stat="identity")+theme(legend.position="none",axis.text.y = element_blank())+geom_text(aes(label=Data2013),size=4)+ coord_flip()
+ggplot(GirlPercentage, aes(x=reorder(State,Percentfemalepassed),y=Percentfemalepassed,group=State, fill=State))+geom_bar(stat="identity")+theme(legend.position="none",axis.text.y = element_blank())+geom_text(aes(label=State),size=4)+ coord_flip()
 #Bar Plot of Passing percentage, in descending order, by state
-GirlPercentageBar<- gvisBarChart(GirlPercentage[order(-GirlPercentage$Percentfemalepassed),],xvar="Data2013",yvar="Percentfemalepassed",options=list(width=800,height=800))
+GirlPercentageBar<- gvisBarChart(GirlPercentage[order(-GirlPercentage$Percentfemalepassed),],xvar="State",yvar="Percentfemalepassed",options=list(width=800,height=800))
 plot(GirlPercentageBar)
 print(GirlPercentageBar,file="girlpercentagebar.html")
 ```
@@ -117,9 +118,9 @@ HispanicPercentage$PercentHispanicTaken<-as.numeric(as.character(HispanicPercent
 
 ```{r}
   
-ggplot(HispanicPercentage, aes(x=reorder(Data2013,PercentHispanicpassed),y=PercentHispanicpassed,group=Data2013, fill=Data2013))+geom_bar(stat="identity")+theme(legend.position="none",axis.text.y = element_blank())+geom_text(aes(label=Data2013),size=4)+ coord_flip()
+ggplot(HispanicPercentage, aes(x=reorder(State,PercentHispanicpassed),y=PercentHispanicpassed,group=State, fill=State))+geom_bar(stat="identity")+theme(legend.position="none",axis.text.y = element_blank())+geom_text(aes(label=State),size=4)+ coord_flip()
 #Bar Plot of Passing percentage, in descending order, by state
-HispanicPercentageBar<-gvisBarChart(HispanicPercentage[order(-HispanicPercentage$PercentHispanicpassed),],xvar="Data2013",yvar="PercentHispanicpassed",options=list(width=800,height=800))
+HispanicPercentageBar<-gvisBarChart(HispanicPercentage[order(-HispanicPercentage$PercentHispanicpassed),],xvar="State",yvar="PercentHispanicpassed",options=list(width=800,height=800))
 plot(HispanicPercentageBar)
 print(HispanicPercentageBar,file="hispanicpercentagebar.html")
 ```
@@ -149,7 +150,7 @@ grid.arrange(p1,p2,p3,p4,p5,p6,ncol=2)
 ```
 
 ```{r}
-GeoStatesBlack <- gvisGeoChart(BlackPercentage, "Data2013", "Percent.Black.Passed",
+GeoStatesBlack <- gvisGeoChart(BlackPercentage, "State", "Percent.Black.Passed",
                           options=list(region="US", displayMode="regions", resolution="provinces",
                                        width=600, height=400))
 plot(GeoStatesBlack)
@@ -157,7 +158,7 @@ print(GeoStatesBlack,file="GeoStatesBlack.html")
 
 
 
-GeoStatesGirl <- gvisGeoChart(GirlPercentage, "Data2013", "Percentfemalepassed",
+GeoStatesGirl <- gvisGeoChart(GirlPercentage, "State", "Percentfemalepassed",
                           options=list(region="US", displayMode="regions", resolution="provinces",
                                        width=600, height=400))
 plot(GeoStatesGirl)
@@ -165,7 +166,7 @@ print(GeoStatesGirl,file="GeoStatesGirl.html")
 
 
 
-GeoStatesHispanic <- gvisGeoChart(HispanicPercentage, "Data2013", "PercentHispanicpassed",
+GeoStatesHispanic <- gvisGeoChart(HispanicPercentage, "State", "PercentHispanicpassed",
                           options=list(region="US", displayMode="regions", resolution="provinces",
                                        width=600, height=400))
 plot(GeoStatesHispanic)
