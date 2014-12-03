@@ -14,8 +14,21 @@ This data is from the College Board, and was collected by Barbara Ericson. The d
 We will be using googleVis for some of our graphs. GoogleVis is a package within R that allows for the easy creation of graphs that you can select and deselect certain parts and factors in it, as well as other visualizations. You will be able to see for yourself what googleVis is capable of as you go through our presentation. 
 As well, we will be using ggplot2 for our static graphs. 
 
-```{r, echo=FALSE}
-library(googleVis)
+```{r setoptions, echo=FALSE}
+library(knitr)
+options(width=60, show.signif.stars=FALSE)
+opts_chunk$set(echo=TRUE,
+               results="asis",
+               warning=FALSE,
+               message=FALSE,
+               fig.width=5,
+               fig.height=4,
+               tidy=TRUE,
+               fig.align='center')
+```
+
+```{r}
+suppressPackageStartupMessages(library(googleVis))
 library(ggplot2)
 library(gridExtra)
 library(gtable)
@@ -27,6 +40,9 @@ setwd("~/SCHOOL/Senior Fall/MKTG 489/AP-Computer-Repository")
 APcomputercleaned2013<-read.csv("APcomputercleaned2013.csv")
 
 ```
+
+
+## Black Students
 
 ```{r}
 APcomputercleaned2013$TeacherYield<-as.numeric(as.character(APcomputercleaned2013$yield.per.teacher))
@@ -40,22 +56,24 @@ BlackPercentage$Percent.Black.Passed <- as.numeric(as.character(BlackPercentage$
 #Factor to Numeric
 BlackPercentage$NumTaking <- as.numeric(as.character(BlackPercentage$numblack.taking.exam))
 ```
-
+I have now created a data set showing the percentage of Black students taking, and passing, the AP test. 
 ```{r}
 ggplot(BlackPercentage, aes(x=reorder(State,Percent.Black.Passed),y=Percent.Black.Passed,group=State, fill=State))+geom_bar(stat="identity")+theme(legend.position="none",axis.text.y = element_blank())+geom_text(aes(label=State),size=4)+ coord_flip()
 #Bar Plot of Passing percentage, in descending order, by state
 BlackPercentageBar<- gvisBarChart(BlackPercentage[order(-BlackPercentage$Percent.Black.Passed),],xvar="State",yvar="Percent.Black.Passed",options=list(width=800,height=800))
-plot(BlackPercentageBar)
+#plot(BlackPercentageBar)
 print(BlackPercentageBar,file="blackpercentagebar.html")
 ```
+<iframe src="blackpercentagebar.html" width="800" height="800"></iframe>
 
-```{r}
+This is a graph of that Data frame, showing a bar chart of passing rates by state. 
+```{r results='asis'}
 p1<-ggplot(BlackPercentage, aes(x=Percent.Black.Passed,y=numblack.taking.exam))+geom_point()+geom_smooth(color="black",method=lm)
 #scatterplot of Percentage Passed and Percentage taken in each state, with regression line
 p1set<-BlackPercentage%>%
   select(8,9)
 p1gvis<-gvisScatterChart(p1set,options=list(width=800,height=800,pointSize=5))
-plot(p1gvis)
+#plot(p1gvis)
 print(p1gvis,file="p1gvis.html")
 
 
@@ -64,10 +82,16 @@ p2<-ggplot(BlackPercentage, aes(x=Percent.Black.Passed,y=TeacherYield))+geom_poi
 p2set<-BlackPercentage%>%
   select(8,2)
 p2gvis<-gvisScatterChart(p2set,options=list(width=800,height=800,pointSize=5))
-plot(p2gvis)
+#plot(p2gvis)
 print(p2gvis,file="p2gvis.html")
 
 ```
+<iframe src="p1gvis.html" width="800" height="800"></iframe>
+<iframe src="p2gvis.html" width="800" height="800"></iframe>
+
+These are both scatter plots, showing the relationship between Black percentage passing, and number taking the exam in the first graph, and the teacher to student ratio in the second graph. In the first scatter plot, we found similarities with the Hispanic students and the Female students, in that the more students taking, the worse they did. We thought this may be due to less individual attention by the teachers, and this is why we ran the second graph, or the teacher yield. 
+
+##Female Students
 
 ```{r}
 GirlPercentage<-APcomputercleaned2013%>%
@@ -83,18 +107,21 @@ GirlPercentage$PercentFemaleTaking<-as.numeric(as.character(GirlPercentage$perce
 ggplot(GirlPercentage, aes(x=reorder(State,Percentfemalepassed),y=Percentfemalepassed,group=State, fill=State))+geom_bar(stat="identity")+theme(legend.position="none",axis.text.y = element_blank())+geom_text(aes(label=State),size=4)+ coord_flip()
 #Bar Plot of Passing percentage, in descending order, by state
 GirlPercentageBar<- gvisBarChart(GirlPercentage[order(-GirlPercentage$Percentfemalepassed),],xvar="State",yvar="Percentfemalepassed",options=list(width=800,height=800))
-plot(GirlPercentageBar)
+#plot(GirlPercentageBar)
 print(GirlPercentageBar,file="girlpercentagebar.html")
 ```
+<iframe src="girlpercentagebar.html" width="800" height="800"></iframe>
 
-```{r}
+We created the same plot for Females as we did with Blacks, and created a similar data frame to do so. 
+
+```{r results='asis'}
 
 p3<-ggplot(GirlPercentage, aes(x=Percentfemalepassed,y=percentfemale))+geom_point()+geom_smooth(color="black",method=lm)
 #scatterplot of Percentage Passed and Percentage taken in each state, with regression line
 p3set<-GirlPercentage%>%
-  select(7,9)
+  select(7,8)
 p3gvis<-gvisScatterChart(p3set,options=list(width=800,height=800,pointSize=5))
-plot(p3gvis)
+#plot(p3gvis)
 print(p3gvis,file="p3gvis.html")
 
 
@@ -103,10 +130,16 @@ p4<-ggplot(GirlPercentage, aes(x=Percentfemalepassed,y=TeacherYield))+geom_point
 p4set<-GirlPercentage%>%
   select(7,2)
 p4gvis<-gvisScatterChart(p4set,options=list(width=800,height=800,pointSize=5))
-plot(p4gvis)
+#plot(p4gvis)
 print(p4gvis,file="p4gvis.html")
 ```
 
+<iframe src="p3gvis.html" width="800" height="800"></iframe>
+<iframe src="p4gvis.html" width="800" height="800"></iframe>
+
+Looking at these last two graphs, you can see the correlation here as we saw in the Black percentage section. 
+
+##Hispanic Students
 ```{r}
 HispanicPercentage<-APcomputercleaned2013%>%
   select(1,29,20:22,26)%>%
@@ -122,10 +155,11 @@ HispanicPercentage$PercentHispanicTaken<-as.numeric(as.character(HispanicPercent
 ggplot(HispanicPercentage, aes(x=reorder(State,PercentHispanicpassed),y=PercentHispanicpassed,group=State, fill=State))+geom_bar(stat="identity")+theme(legend.position="none",axis.text.y = element_blank())+geom_text(aes(label=State),size=4)+ coord_flip()
 #Bar Plot of Passing percentage, in descending order, by state
 HispanicPercentageBar<-gvisBarChart(HispanicPercentage[order(-HispanicPercentage$PercentHispanicpassed),],xvar="State",yvar="PercentHispanicpassed",options=list(width=800,height=800))
-plot(HispanicPercentageBar)
+#plot(HispanicPercentageBar)
 print(HispanicPercentageBar,file="hispanicpercentagebar.html")
 ```
-
+<iframe src="hispanicpercentagebar.html" width="800" height="800"></iframe>
+Bar chart by state for Hispanic Students
 ```{r}
 
 p5<-ggplot(HispanicPercentage, aes(x=PercentHispanicpassed,y=percent.hispanic.taking.exam))+geom_point()+geom_smooth(color="black",method=lm)
@@ -133,7 +167,7 @@ p5<-ggplot(HispanicPercentage, aes(x=PercentHispanicpassed,y=percent.hispanic.ta
 p5set<-HispanicPercentage%>%
   select(7,8)
 p5gvis<-gvisScatterChart(p5set,options=list(width=800,height=800,pointSize=5))
-plot(p5gvis)
+#plot(p5gvis)
 print(p5gvis,file="p5gvis.html")
 
 
@@ -142,19 +176,27 @@ p6<-ggplot(HispanicPercentage, aes(x=PercentHispanicpassed,y=TeacherYield))+geom
 p6set<-HispanicPercentage%>%
   select(7,2)
 p6gvis<-gvisScatterChart(p6set,options=list(width=800,height=800,pointSize=5))
-plot(p6gvis)
+#plot(p6gvis)
 print(p6gvis,file="p6gvis.html")
 ```
+<iframe src="p5gvis.html" width="800" height="800"></iframe>
+<iframe src="p6gvis.html" width="800" height="800"></iframe>
+
+Oddly enough, the teacher yield for Hispanic students is different than with the other two groups. While this may show for a small case, I would have to think that past a certain yield, the results would eventually decline. 
 
 ```{r}
 grid.arrange(p1,p2,p3,p4,p5,p6,ncol=2)
 ```
 
+
+This is a grid using ggplot2 showing the last graphs side by side, for Black, Female, and Hispanic students. With the regression lines, you can see how the trend for teacher yield and students taking exam really works. This just shows how similar the graphs are for Black and Female students, and how odd it is for the Hispanic students.
+
+##Geostates
 ```{r}
 GeoStatesBlack <- gvisGeoChart(BlackPercentage, "State", "Percent.Black.Passed",
                           options=list(region="US", displayMode="regions", resolution="provinces",
                                        width=600, height=400))
-plot(GeoStatesBlack)
+#plot(GeoStatesBlack)
 print(GeoStatesBlack,file="GeoStatesBlack.html")
 
 
@@ -162,7 +204,7 @@ print(GeoStatesBlack,file="GeoStatesBlack.html")
 GeoStatesGirl <- gvisGeoChart(GirlPercentage, "State", "Percentfemalepassed",
                           options=list(region="US", displayMode="regions", resolution="provinces",
                                        width=600, height=400))
-plot(GeoStatesGirl)
+#plot(GeoStatesGirl)
 print(GeoStatesGirl,file="GeoStatesGirl.html")
 
 
@@ -170,19 +212,10 @@ print(GeoStatesGirl,file="GeoStatesGirl.html")
 GeoStatesHispanic <- gvisGeoChart(HispanicPercentage, "State", "PercentHispanicpassed",
                           options=list(region="US", displayMode="regions", resolution="provinces",
                                        width=600, height=400))
-plot(GeoStatesHispanic)
+#plot(GeoStatesHispanic)
 print(GeoStatesHispanic,file="GeoStatesHispanic.html")
 ```
-<iframe src="blackpercentagebar.html" width="800" height="600"></iframe>
-<iframe src="p1gvis.html" width="800" height="600"></iframe>
-<iframe src="p2gvis.html" width="800" height="600"></iframe>
-<iframe src="girlpercentagebar.html" width="800" height="600"></iframe>
-<iframe src="p3gvis.html" width="800" height="600"></iframe>
-<iframe src="p4gvis.html" width="800" height="600"></iframe>
-<iframe src="hispanicpercentagebar.html" width="800" height="600"></iframe>
-<iframe src="p5gvis.html" width="800" height="600"></iframe>
-<iframe src="p6gvis.html" width="800" height="600"></iframe>
-<iframe src="PassingGrid.png" width="800" height="600"></iframe>
-<iframe src="GeoStatesBlack.html" width="800" height="600"></iframe>
-<iframe src="GeoStatesGirl.html" width="800" height="600"></iframe>
-<iframe src="GeoStatesHispanic.html" width="800" height="600"></iframe>
+<iframe src="GeoStatesBlack.html" width="800" height="800"></iframe>
+<iframe src="GeoStatesGirl.html" width="800" height="800"></iframe>
+<iframe src="GeoStatesHispanic.html" width="800" height="800"></iframe>
+These three graphs show the pass rates by geographical location of the state; a full white result means the test was not taken there. Some of these numbers should be taken with a grain of salt; some states may have only had ten people take the test, while states such as California had hundreds. 
